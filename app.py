@@ -8,9 +8,9 @@ import numpy as np
 import dash_bootstrap_components as dbc
 
 # Load data
-visits = pd.read_csv('/Users/nangosyah/Documents/puurs-hospital/data/patient_visits.csv')
-referrals = pd.read_csv('/Users/nangosyah/Documents/puurs-hospital/data/referrals.csv')
-hours = pd.read_csv('/Users/nangosyah/Documents/puurs-hospital/data/staff_hours.csv')
+visits = pd.read_csv('data/patient_visits.csv')
+referrals = pd.read_csv('data/referrals.csv')
+hours = pd.read_csv('data/staff_hours.csv')
 
 # Convert date columns
 visits['date'] = pd.to_datetime(visits['date'])
