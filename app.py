@@ -38,10 +38,11 @@ def get_days_in_month(year_month_str):
             return 29
         return 28
 
-# Initialize app with external stylesheets including Font Awesome
+# Initialize app with external stylesheets including Font Awesome and Google Fonts
 external_stylesheets = [
     dbc.themes.BOOTSTRAP,
-    "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css",
+    "https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
 ]
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
@@ -77,40 +78,47 @@ def filter_data_by_date(selected_month, day_range):
     
     return filtered_data, filtered_referrals, hours
 
-# Define inline styles
+# Define inline styles with Roboto font and readable sizes
 title_panel_style = {
     'background-color': '#1a1a1a',
-    'padding': '25px',
+    'padding': '20px',
     'border-radius': '10px',
-    'margin-bottom': '20px'
+    'margin-bottom': '20px',
+    'font-family': 'Roboto, sans-serif'
 }
 
 card_style = {
     'background-color': '#2d3748',
     'border-radius': '10px',
-    'height': '600px',  # Increased height for full-length cards
+    'height': '600px',
     'margin-bottom': '20px',
-    'box-shadow': '0 4px 6px rgba(0, 0, 0, 0.1)'
+    'box-shadow': '0 4px 6px rgba(0, 0, 0, 0.1)',
+    'font-family': 'Roboto, sans-serif'
 }
 
 card_header_style = {
     'background-color': '#4a5568',
     'color': 'white',
-    'padding': '15px',
+    'padding': '12px',
     'border-radius': '10px 10px 0 0',
-    'font-weight': 'bold'
+    'font-weight': '500',
+    'font-size': '16px',
+    'font-family': 'Roboto, sans-serif'
 }
 
 metric_value_style = {
-    'font-size': '24px',
-    'font-weight': 'bold',
-    'color': '#00cc96'
+    'font-size': '20px',
+    'font-weight': '700',
+    'color': '#00cc96',
+    'font-family': 'Roboto, sans-serif'
 }
 
 metric_label_style = {
-    'font-size': '12px',
+    'font-size': '11px',
     'color': '#cccccc',
-    'margin-bottom': '10px'
+    'margin-bottom': '8px',
+    'font-family': 'Roboto, sans-serif',
+    'font-weight': '400'
 }
 
 app.layout = html.Div([
@@ -122,9 +130,11 @@ app.layout = html.Div([
                 # Left side - Hospital info
                 dbc.Col([
                     html.H1("Puurs Hospital Emergency Department", 
-                           style={'color': colors['text_white'], 'margin-bottom': '10px', 'font-weight': 'bold'}),
+                           style={'color': colors['text_white'], 'margin-bottom': '10px', 'font-weight': '700', 
+                                 'font-family': 'Roboto, sans-serif', 'font-size': '24px'}),
                     html.H4("Emergency Services Report Overview", 
-                           style={'color': colors['text_light'], 'font-weight': '300'})
+                           style={'color': colors['text_light'], 'font-weight': '300', 
+                                 'font-family': 'Roboto, sans-serif', 'font-size': '16px'})
                 ], md=6),
                 
                 # Right side - User info and controls
@@ -134,12 +144,14 @@ app.layout = html.Div([
                         html.I(className="fas fa-user-md", 
                               style={'color': colors['success'], 'margin-right': '8px', 'font-size': '18px'}),
                         html.Span("Welcome, Dr. Sarah Johnson", 
-                                 style={'color': colors['text_white'], 'font-size': '16px', 'font-weight': 'bold'})
+                                 style={'color': colors['text_white'], 'font-size': '14px', 'font-weight': '500',
+                                       'font-family': 'Roboto, sans-serif'})
                     ], style={'margin-bottom': '5px'}),
                     
                     html.Div([
                         html.Span("Head of Emergency Department ", 
-                                 style={'color': colors['text_light'], 'font-size': '13px'}),
+                                 style={'color': colors['text_light'], 'font-size': '12px',
+                                       'font-family': 'Roboto, sans-serif', 'font-weight': '400'}),
                         html.I(className="fas fa-circle", 
                               style={'color': colors['success'], 'font-size': '8px', 'margin-left': '8px'})
                     ], style={'margin-bottom': '15px'}),
@@ -147,14 +159,16 @@ app.layout = html.Div([
                     # Date controls
                     html.Div([
                         html.Div([
-                            html.Strong("Selected Month: ", style={'color': colors['text_white'], 'margin-right': '10px'}),
-                            html.Strong(id='month-display', style={'color': colors['primary']})
+                            html.Strong("Selected Month: ", style={'color': colors['text_white'], 'margin-right': '10px',
+                                                                          'font-family': 'Roboto, sans-serif', 'font-size': '13px'}),
+                            html.Strong(id='month-display', style={'color': colors['primary'], 'font-family': 'Roboto, sans-serif', 'font-size': '13px'})
                         ], style={'margin-bottom': '15px'}),
                         
                         # Month and Day controls on same line
                         dbc.Row([
                             dbc.Col([
-                                html.Label("Month:", style={'color': colors['text_white'], 'margin-bottom': '5px'}),
+                                html.Label("Month:", style={'color': colors['text_white'], 'margin-bottom': '5px',
+                                                          'font-family': 'Roboto, sans-serif', 'font-size': '12px'}),
                                 dcc.Dropdown(
                                     id='month-selector',
                                     options=[{'label': month_mapping[month], 'value': month} for month in available_months],
@@ -165,7 +179,8 @@ app.layout = html.Div([
                             ], md=5),
                             
                             dbc.Col([
-                                html.Label("Day Range:", style={'color': colors['text_white'], 'margin-bottom': '5px'}),
+                                html.Label("Day Range:", style={'color': colors['text_white'], 'margin-bottom': '5px',
+                                                              'font-family': 'Roboto, sans-serif', 'font-size': '12px'}),
                                 dcc.RangeSlider(
                                     id='day-slider',
                                     min=1, max=31, step=1,
@@ -293,7 +308,8 @@ def update_staff_card(selected_month, day_range):
     # Staff summary content
     summary = html.Div([
         html.Div([
-            html.H5("Staffing", style={'color': colors['text_white'], 'margin-bottom': '10px'}),
+            html.H5("Staffing", style={'color': colors['text_white'], 'margin-bottom': '10px',
+                                          'font-family': 'Roboto, sans-serif', 'font-size': '16px', 'font-weight': '500'}),
             html.P([
                 f"All Staff: {total_staff}",
                 html.Br(),
@@ -304,10 +320,12 @@ def update_staff_card(selected_month, day_range):
                 f"• Medical Officers: {staff_counts.get('Medical Officer', 0)}",
                 html.Br(),
                 f"• Nurses: {staff_counts.get('Nurse', 0)}"
-            ], style={'color': colors['text_light'], 'font-size': '14px', 'margin-bottom': '15px'}),
+            ], style={'color': colors['text_light'], 'font-size': '13px', 'margin-bottom': '15px',
+                     'font-family': 'Roboto, sans-serif', 'font-weight': '400'}),
             
             html.H6(f"Total hours worked: {total_doctor_hours:,}", 
-                   style={'color': colors['primary'], 'margin-bottom': '10px', 'font-size': '16px'})
+                   style={'color': colors['primary'], 'margin-bottom': '10px', 'font-size': '14px',
+                         'font-family': 'Roboto, sans-serif', 'font-weight': '500'})
         ], style={'padding': '10px'})
     ])
     
@@ -326,10 +344,11 @@ def update_staff_card(selected_month, day_range):
         title="Top 5 Doctors by Hours Worked",
         plot_bgcolor='rgba(0,0,0,0)',
         paper_bgcolor='rgba(0,0,0,0)',
-        font=dict(color=colors['text_white'], size=10),
+        font=dict(color=colors['text_white'], size=11, family="Roboto, sans-serif"),
         height=300,
         margin=dict(l=80, r=40, t=40, b=20),
-        xaxis=dict(title="Hours Worked")
+        xaxis=dict(title="Hours Worked"),
+        title_font=dict(size=14, family="Roboto, sans-serif")
     )
     
     return summary, fig
@@ -401,7 +420,7 @@ def update_processing_card(selected_month, day_range):
         showlegend=False,
         plot_bgcolor='rgba(0,0,0,0)',
         paper_bgcolor='rgba(0,0,0,0)',
-        font=dict(color=colors['text_white'], size=9),
+        font=dict(color=colors['text_white'], size=10, family="Roboto, sans-serif"),
         margin=dict(l=10, r=10, t=40, b=10)
     )
     
@@ -472,7 +491,7 @@ def update_output_card(selected_month, day_range):
         showlegend=False,
         plot_bgcolor='rgba(0,0,0,0)',
         paper_bgcolor='rgba(0,0,0,0)',
-        font=dict(color=colors['text_white'], size=9),
+        font=dict(color=colors['text_white'], size=10, family="Roboto, sans-serif"),
         margin=dict(l=10, r=10, t=40, b=10)
     )
     
@@ -507,7 +526,7 @@ def update_resource_card(selected_month, day_range):
                'bar': {'color': colors['danger']},
                'steps': [{'range': [0, 2], 'color': "lightgreen"},
                         {'range': [2, 5], 'color': "yellow"}]},
-        title={"text": "Left Without Being Seen Rate"}
+        # title={"text": "Left Without Being Seen Rate"}
     ), row=1, col=1)
     
     # Length of Stay
@@ -550,7 +569,7 @@ def update_resource_card(selected_month, day_range):
         showlegend=False,
         plot_bgcolor='rgba(0,0,0,0)',
         paper_bgcolor='rgba(0,0,0,0)',
-        font=dict(color=colors['text_white'], size=9),
+        font=dict(color=colors['text_white'], size=10, family="Roboto, sans-serif"),
         margin=dict(l=10, r=10, t=40, b=10)
     )
     
